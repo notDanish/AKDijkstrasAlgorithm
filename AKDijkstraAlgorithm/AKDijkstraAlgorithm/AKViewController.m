@@ -112,7 +112,7 @@ static NSInteger const colomns = 10;
 }
 
 
-#pragma mark - Dijkstr's Algorithm
+#pragma mark - Dijkstra's Algorithm
 
 - (void)dijkstrasAlgorithmFromIndexPath:(NSIndexPath *)indexPath finalNode:(AKNode *)finalNode
 {
