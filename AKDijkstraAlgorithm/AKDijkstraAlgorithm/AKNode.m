@@ -12,7 +12,7 @@
 
 -(NSString *)description
 {
-    return [NSString stringWithFormat:@"Value: %@ \nDistance: %ld\nPosition: (%ld, %ld)", self.value, self.distance, self.row, self.colomn];
+    return [NSString stringWithFormat:@"Value: %@ \nDistance: %ld\nPosition: (%ld, %ld)", self.value, self.distance, self.row, self.column];
 }
 
 -(instancetype)init
@@ -21,7 +21,7 @@
     if (self) {
         _path = [[NSMutableArray alloc] init];
         _distance = 0;
-        _colomn = 0;
+        _column = 0;
         _row = 0;
     }
 

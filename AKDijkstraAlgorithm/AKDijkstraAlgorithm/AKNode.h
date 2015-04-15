@@ -15,7 +15,7 @@
 @property (strong, nonatomic) NSMutableArray *path;
 
 @property (nonatomic) NSInteger row;
-@property (nonatomic) NSInteger colomn;
+@property (nonatomic) NSInteger column;
 
 -(NSString *)description;
 

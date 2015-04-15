@@ -93,7 +93,7 @@ static NSInteger const colomns = 10;
     for (AKNode *pathNode in arrayOfPath) {
         //NSLog(@"ROW: %ld\nCOLOMN: %ld", pathNode.row, pathNode.colomn);
 
-        NSIndexPath *ip = [NSIndexPath indexPathForRow:(pathNode.row*10)+pathNode.colomn inSection:0];
+        NSIndexPath *ip = [NSIndexPath indexPathForRow:(pathNode.row*10)+pathNode.column inSection:0];
         AKCollectionViewCell *cellTrace = (AKCollectionViewCell *)[collectionView cellForItemAtIndexPath:ip];
         cellTrace.backgroundColor = [UIColor greenColor];
         [UIView animateWithDuration:4.0 animations:^{
@@ -116,35 +116,35 @@ static NSInteger const colomns = 10;
 
 - (void)dijkstrasAlgorithmFromIndexPath:(NSIndexPath *)indexPath finalNode:(AKNode *)finalNode
 {
-    NSInteger colomnAssumed = indexPath.row%10;
+    NSInteger columnAssumed = indexPath.row%10;
     NSInteger rowAssumed = indexPath.row/10;
-    NSLog(@"row: %ld \ncolomn: %ld", rowAssumed, colomnAssumed);
+    NSLog(@"row: %ld \ncolomn: %ld", rowAssumed, columnAssumed);
     
         
         for (NSInteger i =0; i<=rowAssumed; i++) {
             
-            for (NSInteger j =0; j<=colomnAssumed; j++) {
+            for (NSInteger j =0; j<=columnAssumed; j++) {
                 
                 AKNode *currentNode = self.twoDimensionArray[i][j];
                 currentNode.row = i;
-                currentNode.colomn = j;
+                currentNode.column = j;
                 
-                if (j+1 <= colomnAssumed)
+                if (j+1 <= columnAssumed)
                 {
                     
-                    AKNode *followingColomnNode = self.twoDimensionArray[i][j+1];
+                    AKNode *followingColumnNode = self.twoDimensionArray[i][j+1];
                     
-                    if ((currentNode.distance+1 < followingColomnNode.distance || followingColomnNode.distance == 0) && ![followingColomnNode.value isEqualToString:@"X"])
+                    if ((currentNode.distance+1 < followingColumnNode.distance || followingColumnNode.distance == 0) && ![followingColumnNode.value isEqualToString:@"X"])
                     {
-                        followingColomnNode.row = i;
-                        followingColomnNode.colomn = j+1;
+                        followingColumnNode.row = i;
+                        followingColumnNode.column = j+1;
                         for (AKNode *node in currentNode.path) {
-                            [followingColomnNode.path addObject:node];
+                            [followingColumnNode.path addObject:node];
                         }
-                        [followingColomnNode.path addObject:followingColomnNode];
+                        [followingColumnNode.path addObject:followingColumnNode];
                         
-                        followingColomnNode.distance = currentNode.distance + 1;
-                        [self.twoDimensionArray[i] replaceObjectAtIndex:j+1 withObject:followingColomnNode];
+                        followingColumnNode.distance = currentNode.distance + 1;
+                        [self.twoDimensionArray[i] replaceObjectAtIndex:j+1 withObject:followingColumnNode];
                     }
                     
                 }
@@ -158,7 +158,7 @@ static NSInteger const colomns = 10;
                     if((currentNode.distance+1 < follwingRowNode.distance || follwingRowNode.distance == 0) && ![follwingRowNode.value isEqualToString:@"X"])
                     {
                         follwingRowNode.row = i+1;
-                        follwingRowNode.colomn = j;
+                        follwingRowNode.column = j;
                         for (AKNode *node in currentNode.path) {
                             [follwingRowNode.path addObject:node];
                         }
@@ -173,7 +173,7 @@ static NSInteger const colomns = 10;
             
         }
         
-        AKNode *myFinalNode = self.twoDimensionArray[rowAssumed][colomnAssumed];
+        AKNode *myFinalNode = self.twoDimensionArray[rowAssumed][columnAssumed];
         NSLog(@"Distance = %ld", myFinalNode.distance);
         self.finalPath = myFinalNode.path;
 }
